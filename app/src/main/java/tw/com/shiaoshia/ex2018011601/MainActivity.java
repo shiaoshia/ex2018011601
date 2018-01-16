@@ -1,13 +1,17 @@
 package tw.com.shiaoshia.ex2018011601;
 
+import android.icu.util.ValueIterator;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -91,5 +95,51 @@ public class MainActivity extends AppCompatActivity {
             this.name = name;
             this.score = score;
         }
+    }
+
+    //讀檔
+    public void click05(View v) {
+        File f = new File(getFilesDir(),"myfile1.txt");
+
+        try {
+            FileReader fr = new FileReader(f);
+            BufferedReader br = new BufferedReader(fr);
+            String str = br.readLine(); //讀出一行資料
+            Log.d("FILE",str);
+            Gson gson = new Gson();
+            ArrayList<String> mydata = gson.fromJson(str, new TypeToken<ArrayList<String>>(){}.getType());
+            for(String s:mydata) {
+                Log.d("FILE","data:" + s);
+            }
+            br.close();
+            fr.close();
+
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    //讀檔
+    public void click06(View v) {
+        File f = new File(getFilesDir(),"myfile2.txt");
+
+        try {
+            FileReader fr = new FileReader(f);
+            BufferedReader br = new BufferedReader(fr);
+            String str = br.readLine(); //讀出一行資料
+            Log.d("FILE",str);
+            Gson gson = new Gson();
+            ArrayList<Student> mydata = gson.fromJson(str, new TypeToken<ArrayList<Student>>(){}.getType());
+            for(Student s:mydata) {
+                Log.d("FILE","id:" + s.id +",name:" + s.name +",score="+s.score);
+            }
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
     }
 }
