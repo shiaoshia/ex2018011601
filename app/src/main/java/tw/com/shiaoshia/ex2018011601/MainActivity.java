@@ -1,6 +1,7 @@
 package tw.com.shiaoshia.ex2018011601;
 
 import android.icu.util.ValueIterator;
+import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -140,6 +141,16 @@ public class MainActivity extends AppCompatActivity {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
 
+    public void click07(View v) {
+
+        //  /storage/emulated/0/Android/data/tw.com.shiaoshia.ex2018011601/files/data
+        File f = getExternalFilesDir("data");
+        Log.d("FILE",f.getAbsolutePath());
+
+        //  /storage/emulated/0
+        f = Environment.getExternalStorageDirectory();
+        Log.d("FILE",f.getAbsolutePath());
     }
 }
